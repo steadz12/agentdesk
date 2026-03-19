@@ -77,12 +77,16 @@ def build_system(demo_mode: bool = True) -> OrchestratorAgent:
     vector_store = get_vector_store()
 
     rag_engine = RAGEngine(vector_store=vector_store)
+
+    # Always load knowledge_base/ if it has files
+    n_kb = rag_engine.ingest_directory(KNOWLEDGE_BASE_PATH)
+    if n_kb:
+        console.print(f"  [green]✓[/green] Knowledge base indexed ({n_kb} chunks from {KNOWLEDGE_BASE_PATH})")
+
+    # Also load demo text in demo mode (--no-demo skips this)
     if demo_mode:
-        n = rag_engine.ingest_text(DEMO_KNOWLEDGE, source="demo_knowledge.txt")
-        console.print(f"  [green]✓[/green] Demo knowledge indexed ({n} chunks)")
-    else:
-        n = rag_engine.ingest_directory(KNOWLEDGE_BASE_PATH)
-        console.print(f"  [green]✓[/green] Knowledge base indexed ({n} chunks from {KNOWLEDGE_BASE_PATH})")
+        n_demo = rag_engine.ingest_text(DEMO_KNOWLEDGE, source="demo_knowledge.txt")
+        console.print(f"  [green]✓[/green] Demo knowledge indexed ({n_demo} chunks)")
 
     tool_registry = ToolRegistry(rag_engine=rag_engine, memory_manager=memory)
     rag_agent = RAGAgent(rag_engine=rag_engine, memory=memory)
