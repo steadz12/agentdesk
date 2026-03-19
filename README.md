@@ -23,33 +23,70 @@ Most multi-agent demos are either toy examples or opaque black boxes. AgentDesk 
 
 ```bash
 # 1. Clone
-git clone https://github.com/steadz12/agentdesk
+git clone https://github.com/yourusername/agentdesk
 cd agentdesk
 
-# 2. Install
+# 2. Create and activate a virtual environment
+python -m venv .venv
+source .venv/bin/activate        # Mac/Linux
+# .venv\Scripts\activate         # Windows
+
+# 3. Install
 pip install -e .
 
-# 3. Configure
+# 4. Configure
 cp .env.example .env
 # → Open .env and add: ANTHROPIC_API_KEY=sk-ant-...
+# → Get a free key at https://console.anthropic.com
 
-# 4. Run
+# 5. Run
 python main.py
 ```
 
-That's it. AgentDesk will start in interactive mode with demo data preloaded.
+That's it. AgentDesk starts in interactive mode and automatically loads:
+- **Sprint data** — tasks, blockers, velocity, standup notes (`data/knowledge_base/sprint_14.txt`)
+- **Team handbook** — on-call rota, deployment process, code review rules (`data/knowledge_base/team_handbook.txt`)
+- **Productivity tips** — developer workflow best practices (built-in demo text)
+
+> **Python 3.11+ required.** Check with `python --version`.
 
 ---
 
 ## Try these prompts
 
+These all work out of the box with the included demo data — no setup beyond your API key.
+
+**Sprint & task questions (uses RAG agent):**
 ```
 > What tasks are currently blocked in the sprint?
 > Who is on-call this week?
-> Calculate the team's velocity trend over the last two sprints
 > What is our deployment process?
-> Save a reminder that the architecture review is on Friday
+> What are the code review rules?
+```
+
+**Calculations (uses Tool agent):**
+```
+> Calculate the percentage of story points completed — 8 done out of 26 total
+> What is 8 divided by 26 as a percentage?
+```
+
+**Combined — look up then act (uses both agents):**
+```
+> Search the knowledge base for sprint story points, calculate the remaining points, and save to memory
+> Summarise the sprint blockers and write a status report to output/report.txt
+```
+
+**Productivity tips (uses built-in demo knowledge):**
+```
 > What time should I do deep work today?
+> How should I structure my day as a developer?
+```
+
+**Shell commands:**
+```
+memory   → show all saved long-term facts
+clear    → wipe conversation history
+quit     → exit
 ```
 
 Or run a single task from the CLI:
@@ -158,18 +195,26 @@ See `CONTRIBUTING.md` for the full guide.
 
 ## Using your own knowledge base
 
-Drop `.txt` files into `data/knowledge_base/` and run with `--no-demo`:
+Drop `.txt` files into `data/knowledge_base/` — they are loaded automatically every time you run `python main.py`, alongside the built-in demo text.
+
+```bash
+# Just add your files and run — no flags needed
+cp my_runbook.txt data/knowledge_base/
+python main.py
+```
+
+To load **only** your own files and skip the built-in demo text:
 
 ```bash
 python main.py --no-demo
 ```
 
-AgentDesk will chunk and index everything at startup. Good sources:
+Good sources to add:
 - Sprint backlog exports
 - Team runbooks and playbooks
 - Architecture decision records (ADRs)
 - Meeting notes and standup summaries
-- Confluence / Notion exports (copy as plain text)
+- Confluence / Notion exports (save as plain text)
 
 ---
 
@@ -279,16 +324,3 @@ We welcome contributions of all sizes. See [CONTRIBUTING.md](CONTRIBUTING.md) fo
 ## License
 
 MIT — do whatever you want with it. See [LICENSE](LICENSE).
-
----
-
-## GitHub repo description & tags
-
-**Description** (paste into the GitHub repo "About" box):
-> A multi-agent AI productivity workspace for developers — featuring RAG, tool use, memory, and orchestration. Swap in your own LLM or vector store with one env var.
-
-**Topics** (paste into GitHub "Topics"):
-```
-ai agents multi-agent rag llm anthropic claude productivity developer-tools
-python tool-use memory orchestration faiss pinecone openai
-```
