@@ -1,5 +1,3 @@
-<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/bc15ad7e-ff1c-4fd5-89f9-ba1b1580dd59" />
-
 # AgentDesk 🤖
 
 **A multi-agent AI productivity workspace — built for developers, designed to be hacked.**
@@ -7,6 +5,10 @@
 AgentDesk is a working reference implementation of four core AI agent concepts — orchestration, RAG, tool use, and memory — applied to a real developer productivity use case: managing tasks, sprints, and team knowledge.
 
 Clone it, run it in 60 seconds, then swap in your own LLM, vector store, tools, or knowledge base.
+
+---
+
+<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/bc15ad7e-ff1c-4fd5-89f9-ba1b1580dd59" />
 
 ---
 
