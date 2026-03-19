@@ -1,3 +1,5 @@
+<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/bc15ad7e-ff1c-4fd5-89f9-ba1b1580dd59" />
+
 # AgentDesk 🤖
 
 **A multi-agent AI productivity workspace — built for developers, designed to be hacked.**
