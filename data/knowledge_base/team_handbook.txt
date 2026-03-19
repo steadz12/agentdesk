@@ -1,0 +1,51 @@
+AgentDesk Demo: Engineering Team Handbook
+==========================================
+
+## Code Review Guidelines
+
+Every PR requires at least one approval from a senior engineer before merge.
+PRs touching auth, payments, or data pipelines require two approvals.
+Reviewers should respond within one business day.
+
+Use the following labels on PRs:
+  - `needs-tests`   : PR is missing test coverage
+  - `breaking-change` : API contract changes that affect consumers
+  - `hotfix`         : bypass normal review for production incidents only
+  - `design-review`  : requires architecture discussion before coding
+
+## On-call Rotation
+Week of March 16: Dave (primary), Alice (backup)
+Week of March 23: Carol (primary), Bob (backup)
+On-call responds to PagerDuty alerts within 15 minutes during business hours,
+30 minutes outside business hours.
+
+## Deployment Process
+1. All code lands on `main` via squash-merge PRs
+2. CI runs: lint → unit tests → integration tests → security scan
+3. Staging deploy is automatic on green CI
+4. Production deploy requires a manual approval in GitHub Actions
+5. Rollback: `make rollback ENV=prod` triggers the previous image
+
+## Incident Process
+SEV1 (site down): page on-call immediately, open incident Slack channel, update status page
+SEV2 (degraded): notify on-call, fix within 4 hours
+SEV3 (minor): create ticket, fix within next sprint
+
+## Performance Budgets
+API p95 latency: < 150ms
+API p99 latency: < 400ms
+Error rate: < 0.1% over 5-minute rolling window
+Apdex target: 0.95
+
+## Architecture Decisions
+- All services use structured JSON logging (no printf-style strings)
+- Feature flags managed via LaunchDarkly — no config file deploys
+- Database migrations run automatically on deploy via Flyway
+- Secrets stored in AWS Secrets Manager, never in env files or code
+
+## Useful Commands
+make test          # run full test suite
+make lint          # run ruff + mypy
+make dev           # start local dev stack (docker-compose)
+make migrate       # run pending DB migrations
+make rollback      # roll back last production deploy

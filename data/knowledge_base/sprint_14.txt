@@ -1,0 +1,39 @@
+AgentDesk Demo Project: Orion — API Gateway Rebuild
+=====================================================
+Sprint 14 — Week of March 10, 2026
+
+## Sprint Goal
+Migrate legacy REST API gateway to a new rate-limited, token-authenticated
+system with per-tenant quotas. Target: 100% test coverage on auth module.
+
+## Backlog Tasks
+
+TASK-201 [DONE] Design new token schema — Alice — 2 pts
+TASK-202 [DONE] Implement JWT validation middleware — Bob — 3 pts  
+TASK-203 [IN PROGRESS] Write unit tests for auth module — Carol — 3 pts
+TASK-204 [IN PROGRESS] Integrate rate limiter with Redis — Dave — 5 pts
+TASK-205 [TODO] Update API documentation in Swagger — Alice — 2 pts
+TASK-206 [TODO] Load test: simulate 10k concurrent requests — Bob — 3 pts
+TASK-207 [TODO] Deploy canary to staging — Dave — 2 pts
+TASK-208 [BLOCKED] Migrate old API keys to new format — Carol — 5 pts
+  Blocked by: TASK-204 (Redis integration not complete)
+
+## Standup Notes — March 17
+
+Alice: Finished token schema, starting on Swagger docs today. May need input from Dave on rate limit headers format.
+
+Bob: JWT middleware is merged and passing CI. Will start load tests once staging is up.
+
+Carol: Auth tests at ~70% coverage. Discovered an edge case with expired tokens — opening TASK-209 to track.
+
+Dave: Redis integration is the blocker. Hit a serialization issue with tenant config objects. ETA: end of day Wednesday.
+
+## Team Velocity
+Sprint 13: 18 points delivered
+Sprint 14: 8 points done, 18 points in progress/todo
+Running average: 22 pts/sprint
+
+## Tech Decisions Log
+- Chose RS256 over HS256 for JWT: asymmetric keys allow public verification without sharing secret
+- Redis cluster (not single node) for rate limiter: avoids SPOF in prod
+- Swagger 3.1 (not 2.0): supports webhooks, better discriminator support

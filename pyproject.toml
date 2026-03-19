@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "agentdesk"
+version = "0.1.0"
+description = "A multi-agent AI productivity workspace — built for developers"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+keywords = ["ai", "agents", "productivity", "rag", "llm", "anthropic"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "anthropic>=0.40.0",
+    "python-dotenv>=1.0.0",
+    "rich>=13.0.0",
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+# pip install agentdesk[faiss]  — fast vector search
+faiss = ["faiss-cpu>=1.8.0", "numpy>=1.26.0"]
+
+# pip install agentdesk[openai]  — swap LLM backend
+openai = ["openai>=1.30.0"]
+
+# pip install agentdesk[pinecone]  — swap vector store
+pinecone = ["pinecone-client>=3.0.0"]
+
+# pip install agentdesk[dev]  — dev tooling
+dev = ["pytest>=8.0", "pytest-asyncio", "ruff", "mypy"]
+
+# pip install agentdesk[all]
+all = ["faiss-cpu", "numpy", "openai", "pinecone-client"]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/agentdesk"
+Documentation = "https://github.com/yourusername/agentdesk/blob/main/docs/"
+Issues = "https://github.com/yourusername/agentdesk/issues"
+
+[project.scripts]
+agentdesk = "main:main"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
