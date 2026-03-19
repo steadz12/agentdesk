@@ -85,13 +85,12 @@ def build_system(demo_mode: bool = True) -> OrchestratorAgent:
         console.print(f"  [green]✓[/green] Knowledge base indexed ({n} chunks from {KNOWLEDGE_BASE_PATH})")
 
     tool_registry = ToolRegistry(rag_engine=rag_engine, memory_manager=memory)
-    rag_agent = RAGAgent(rag_engine=rag_engine, memory=memory, llm=llm)
-    tool_agent = ToolAgent(tool_registry=tool_registry, memory=memory, llm=llm)
+    rag_agent = RAGAgent(rag_engine=rag_engine, memory=memory)
+    tool_agent = ToolAgent(tool_registry=tool_registry, memory=memory)
     orchestrator = OrchestratorAgent(
         rag_agent=rag_agent,
         tool_agent=tool_agent,
         memory=memory,
-        llm=llm,
     )
 
     console.print(f"  [green]✓[/green] All agents ready\n")

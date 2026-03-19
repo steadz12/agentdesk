@@ -15,6 +15,7 @@ load_dotenv()
 # OPENAI_MODEL=gpt-4o               (if using OpenAI)
 LLM_PROVIDER     = os.getenv("LLM_PROVIDER", "anthropic")
 ANTHROPIC_MODEL  = os.getenv("ANTHROPIC_MODEL", "claude-opus-4-5")
+MODEL            = ANTHROPIC_MODEL  # alias used by agents
 MAX_TOKENS       = int(os.getenv("MAX_TOKENS", "2048"))
 
 # ── Vector Store ───────────────────────────────────────────────────────────────

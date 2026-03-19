@@ -1,8 +1,5 @@
 """
 core/rag.py — RAG Engine (provider-agnostic)
-──────────────────────────────────────────────────────────────────────
-Wraps a VectorStore provider with chunking + ingestion logic.
-The actual similarity search is delegated to providers/vector_store.py.
 """
 import os
 from providers.vector_store import VectorStore, SearchResult
