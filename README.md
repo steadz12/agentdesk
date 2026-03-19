@@ -23,7 +23,7 @@ Most multi-agent demos are either toy examples or opaque black boxes. AgentDesk 
 
 ```bash
 # 1. Clone
-git clone https://github.com/yourusername/agentdesk
+git clone https://github.com/steadz12/agentdesk
 cd agentdesk
 
 # 2. Install
