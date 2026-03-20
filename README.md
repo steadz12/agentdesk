@@ -8,7 +8,7 @@ Clone it, run it in 60 seconds, then swap in your own LLM, vector store, tools, 
 
 ---
 
-<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/9a1686c2-de60-4d1d-a4f1-e932b816dd16" />
+<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/4ff49090-89c1-4697-a95c-16a8e6f92199" />
 
 ---
 
